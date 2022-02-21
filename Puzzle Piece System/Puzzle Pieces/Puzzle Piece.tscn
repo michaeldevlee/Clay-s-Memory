@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Puzzle Piece System/Puzzle Pieces/Puzzle Piece.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=2]
+resource_local_to_scene = true
+extents = Vector2( 152, 52 )
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 168, 66.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+resource_local_to_scene = true
+extents = Vector2( 300, 300 )
+
+[node name="Puzzle Piece" type="Node2D"]
+script = ExtResource( 1 )
+piece_type = "DROPPABLE"
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = 10.0
+continuous_cd = 2
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource( 2 )
+
+[node name="Puzzle Piece" type="Sprite" parent="RigidBody2D"]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 208, 208 )
+
+[node name="Symbol" type="Sprite" parent="RigidBody2D/Puzzle Piece"]
+texture = ExtResource( 2 )
+
+[node name="Grab Area" type="Area2D" parent="RigidBody2D/Puzzle Piece"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Puzzle Piece/Grab Area"]
+shape = SubResource( 1 )
+
+[node name="Throwing Area" type="Area2D" parent="RigidBody2D/Puzzle Piece"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Puzzle Piece/Throwing Area"]
+shape = SubResource( 3 )
+disabled = true
+
+[connection signal="input_event" from="RigidBody2D/Puzzle Piece/Grab Area" to="." method="_on_Grab_Area_input_event"]
+[connection signal="input_event" from="RigidBody2D/Puzzle Piece/Throwing Area" to="." method="_on_Throwing_Area_input_event"]

@@ -1,0 +1,59 @@
+[gd_scene format=2]
+
+[node name="Background" type="Node2D"]
+
+[node name="Debug Quadrants" type="Node2D" parent="."]
+show_behind_parent = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="Debug Quadrants"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Debug Quadrants"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1024.0
+margin_right = 2048.0
+margin_bottom = 600.0
+mouse_filter = 2
+color = Color( 0.847059, 0.47451, 0.47451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="Debug Quadrants"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1024.0
+margin_top = -600.0
+margin_right = 2048.0
+mouse_filter = 2
+color = Color( 0.878431, 0.647059, 0.647059, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect4" type="ColorRect" parent="Debug Quadrants"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -600.0
+margin_right = 1024.0
+mouse_filter = 2
+color = Color( 0.937255, 0.768627, 0.768627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

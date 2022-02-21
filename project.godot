@@ -1,0 +1,43 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player/Player.gd"
+}, {
+"base": "Node2D",
+"class": "Puzzle_Piece",
+"language": "GDScript",
+"path": "res://Puzzle Piece System/Puzzle Pieces/Puzzle Piece.gd"
+} ]
+_global_script_class_icons={
+"Player": "",
+"Puzzle_Piece": ""
+}
+
+[application]
+
+config/name="Clay's Memory"
+run/main_scene="res://Main.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+PieceEvents="*res://Puzzle Piece System/Event Manager/Piece Events.gd"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
