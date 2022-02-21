@@ -1,19 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Puzzle Piece System/Puzzle Pieces/Puzzle Piece.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=2]
 resource_local_to_scene = true
-extents = Vector2( 152, 52 )
+extents = Vector2( 64, 52 )
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
-extents = Vector2( 168, 66.5 )
+extents = Vector2( 96, 66.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 resource_local_to_scene = true
 extents = Vector2( 300, 300 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 16, 16 )
 
 [node name="Puzzle Piece" type="Node2D"]
 script = ExtResource( 1 )
@@ -45,5 +48,11 @@ shape = SubResource( 1 )
 shape = SubResource( 3 )
 disabled = true
 
+[node name="Detect Area" type="Area2D" parent="RigidBody2D/Puzzle Piece"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Puzzle Piece/Detect Area"]
+shape = SubResource( 4 )
+
 [connection signal="input_event" from="RigidBody2D/Puzzle Piece/Grab Area" to="." method="_on_Grab_Area_input_event"]
 [connection signal="input_event" from="RigidBody2D/Puzzle Piece/Throwing Area" to="." method="_on_Throwing_Area_input_event"]
+[connection signal="area_entered" from="RigidBody2D/Puzzle Piece/Detect Area" to="." method="_on_Detect_Area_area_entered"]

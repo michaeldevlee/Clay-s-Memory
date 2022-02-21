@@ -38,7 +38,7 @@ func _on_Grab_Area_input_event(viewport, event, shape_idx):
 	process_puzzle_piece_input(event)
 	
 func process_puzzle_piece_input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and PieceEvents.picked_up_piece == null:
 		if event.pressed and event.button_index == 1 and !picked_up:
 			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 			rigid_body_collider.disabled = true
@@ -54,7 +54,6 @@ func _on_Throwing_Area_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseMotion:
 		throw_speed = event.speed 
 	
-	
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == 1 and picked_up:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -65,14 +64,13 @@ func _on_Throwing_Area_input_event(viewport, event, shape_idx):
 			
 			initialize_piece()
 			
+func _on_Detect_Area_area_entered(area):
+	pass # Replace with function body.
 
 
 func _physics_process(delta):
 	if picked_up:
 		rigid_body.global_position = lerp(rigid_body.global_position.round(), get_global_mouse_position().round(), 1)
-
-
-
 
 
 
