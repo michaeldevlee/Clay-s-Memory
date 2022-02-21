@@ -7,6 +7,7 @@ var distance_to_shape
 var detection_status : bool = false
 var piece_to_detect
 var correct_shape_received : bool = false
+var occupied : bool = false
 
 signal shape_updated (key_section, shape_status)
 
@@ -29,9 +30,12 @@ func check_shape():
 func _input(event):
 	if detection_status == true and event is InputEventMouseButton:
 		if event.pressed and event.button_index == 1:
-			if PieceEvents.picked_up_piece:
+			if PieceEvents.picked_up_piece and !occupied:
+				occupied = true
 				check_shape()
-	
+			elif PieceEvents.picked_up_piece and occupied:
+				occupied = false
+				
 	if Input.is_action_just_pressed("ui_down"):
 		print(correct_shape_received)
 				
@@ -47,7 +51,7 @@ func _on_Detection_Area_area_shape_entered(area_rid, area, area_shape_index, loc
 			
 func _on_Detection_Area_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
 	if area.name == "Detect Area" and piece_to_detect and piece_to_detect is Puzzle_Piece:
-		if piece_to_detect.piece_type == "PUZZLE_PIECE":
+		if piece_to_detect.piece_type == "PUZZLE_PIECE" and !occupied:
 			piece_to_detect = null
 			detection_status = false
 			correct_shape_received = false

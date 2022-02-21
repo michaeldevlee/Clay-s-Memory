@@ -23,11 +23,29 @@ _global_script_classes=[ {
 "class": "Puzzle_Piece",
 "language": "GDScript",
 "path": "res://Puzzle Piece System/Puzzle Pieces/Puzzle Piece.gd"
+}, {
+"base": "Node2D",
+"class": "Shape_Key",
+"language": "GDScript",
+"path": "res://Puzzle Piece System/Puzzle Key Shape/Puzzle Key Shape.gd"
+}, {
+"base": "Node2D",
+"class": "Weight_Button",
+"language": "GDScript",
+"path": "res://Puzzle Piece System/Button/Button.gd"
+}, {
+"base": "Node2D",
+"class": "Weight_Button_Key",
+"language": "GDScript",
+"path": "res://Puzzle Piece System/Button System/Button System.gd"
 } ]
 _global_script_class_icons={
 "Key_Section": "",
 "Player": "",
-"Puzzle_Piece": ""
+"Puzzle_Piece": "",
+"Shape_Key": "",
+"Weight_Button": "",
+"Weight_Button_Key": ""
 }
 
 [application]
@@ -39,6 +57,7 @@ config/icon="res://icon.png"
 [autoload]
 
 PieceEvents="*res://Puzzle Piece System/Event Manager/Piece Events.gd"
+LevelManager="*res://Level/Level Manager/Level Manager.gd"
 
 [global]
 

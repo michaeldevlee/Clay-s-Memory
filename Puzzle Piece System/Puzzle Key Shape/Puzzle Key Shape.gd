@@ -1,4 +1,5 @@
 extends Node2D
+class_name Shape_Key
 
 var shape_list = {}
 var value_list = []
