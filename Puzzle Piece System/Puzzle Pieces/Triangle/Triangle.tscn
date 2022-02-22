@@ -20,7 +20,7 @@ extents = Vector2( 64, 66.5 )
 resource_local_to_scene = true
 extents = Vector2( 300, 300 )
 
-[node name="Triangle" instance=ExtResource( 2 )]
+[node name="Triangle" groups=["Triangle"] instance=ExtResource( 2 )]
 
 [node name="CollisionShape2D" parent="RigidBody2D" index="0"]
 position = Vector2( -4, 0 )

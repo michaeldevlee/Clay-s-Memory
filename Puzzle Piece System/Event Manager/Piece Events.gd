@@ -1,6 +1,7 @@
 extends Node
 
 signal pick_up_event_initiated (puzzle_piece, type)
+signal stash_event_initiated(puzzle_piece)
 
 var puzzle_piece_symbol = preload("res://Puzzle Piece System/Puzzle Symbols/Puzzle/Puzzle.png")
 var platform_symbol = preload("res://Puzzle Piece System/Puzzle Symbols/Platform/Weight.png")

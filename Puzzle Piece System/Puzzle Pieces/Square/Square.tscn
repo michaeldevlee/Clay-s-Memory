@@ -20,7 +20,7 @@ extents = Vector2( 64, 64 )
 resource_local_to_scene = true
 extents = Vector2( 300, 300 )
 
-[node name="Square" instance=ExtResource( 2 )]
+[node name="Square" groups=["Square"] instance=ExtResource( 2 )]
 
 [node name="RigidBody2D" parent="." index="0"]
 continuous_cd = 0

@@ -14,6 +14,7 @@ onready var debug_stat = get_node("RigidBody2D/Debug2")
 
 var picked_up : bool = false
 var sprite_size 
+var sprite_shape
 var is_being_hit_by_laser : bool = false
 var next_laser
 var next_piece
@@ -22,6 +23,7 @@ func _ready():
 	initialize_piece()
 	sprite_size = sprite.texture.get_size()
 	debug_name.set_text(str(self))
+	sprite_shape = PieceEvents.shapes[sprite.texture]
 
 func initialize_piece():
 	match piece_type:
