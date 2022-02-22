@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Puzzle Piece System/Puzzle Pieces/Puzzle Piece.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Puzzle Piece System/Reflector System/Laser.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
 resource_local_to_scene = true
@@ -53,6 +54,30 @@ disabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Puzzle Piece/Detect Area"]
 shape = SubResource( 4 )
 
+[node name="Laser" parent="RigidBody2D" instance=ExtResource( 3 )]
+position = Vector2( 80, 0 )
+
+[node name="Debug" type="Label" parent="RigidBody2D"]
+margin_left = -40.0
+margin_top = -96.0
+margin_right = 48.0
+margin_bottom = -58.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Debug2" type="Label" parent="RigidBody2D"]
+margin_left = -40.0
+margin_top = -144.0
+margin_right = 48.0
+margin_bottom = -106.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="input_event" from="RigidBody2D/Puzzle Piece/Grab Area" to="." method="_on_Grab_Area_input_event"]
 [connection signal="input_event" from="RigidBody2D/Puzzle Piece/Throwing Area" to="." method="_on_Throwing_Area_input_event"]
-[connection signal="area_entered" from="RigidBody2D/Puzzle Piece/Detect Area" to="." method="_on_Detect_Area_area_entered"]

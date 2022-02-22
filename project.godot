@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Puzzle Piece System/Puzzle Key Shape/Key Shape Part.gd"
 }, {
+"base": "RayCast2D",
+"class": "Laser",
+"language": "GDScript",
+"path": "res://Laser.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -23,6 +28,16 @@ _global_script_classes=[ {
 "class": "Puzzle_Piece",
 "language": "GDScript",
 "path": "res://Puzzle Piece System/Puzzle Pieces/Puzzle Piece.gd"
+}, {
+"base": "Node2D",
+"class": "Reflection_Receiver",
+"language": "GDScript",
+"path": "res://Puzzle Piece System/Reflector System/Reflection Receiver.gd"
+}, {
+"base": "Node2D",
+"class": "Reflection_Receiver_Key",
+"language": "GDScript",
+"path": "res://Puzzle Piece System/Reflector System/Reflector System.gd"
 }, {
 "base": "Node2D",
 "class": "Shape_Key",
@@ -41,8 +56,11 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Key_Section": "",
+"Laser": "",
 "Player": "",
 "Puzzle_Piece": "",
+"Reflection_Receiver": "",
+"Reflection_Receiver_Key": "",
 "Shape_Key": "",
 "Weight_Button": "",
 "Weight_Button_Key": ""

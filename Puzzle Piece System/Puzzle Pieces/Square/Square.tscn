@@ -22,6 +22,9 @@ extents = Vector2( 300, 300 )
 
 [node name="Square" instance=ExtResource( 2 )]
 
+[node name="RigidBody2D" parent="." index="0"]
+continuous_cd = 0
+
 [node name="CollisionShape2D" parent="RigidBody2D" index="0"]
 shape = SubResource( 1 )
 

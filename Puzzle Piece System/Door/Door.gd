@@ -12,6 +12,10 @@ func _ready():
 		
 		if key is Weight_Button_Key:
 			key.connect("all_buttons_pressed", self, "open_door")
-
+		
+		if key is Reflection_Receiver_Key:
+			key.connect("all_receivers_shined", self, "open_door")
+			print("open receiever door")
+			
 func open_door():
 	queue_free()
