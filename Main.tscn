@@ -148,6 +148,20 @@ piece_type = "REFLECTOR"
 
 [node name="Square5" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 3 )]
 position = Vector2( 7015, -152 )
+rotation = -1.57079
+piece_type = "REFLECTOR"
+
+[node name="Square6" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 3 )]
+position = Vector2( 7392, -136 )
+rotation = 3.14348
+piece_type = "REFLECTOR"
+
+[node name="Square7" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 3 )]
+position = Vector2( 6456, -264 )
+piece_type = "REFLECTOR"
+
+[node name="Square8" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 3 )]
+position = Vector2( 7680, -264 )
 rotation = 1.5708
 piece_type = "REFLECTOR"
 
