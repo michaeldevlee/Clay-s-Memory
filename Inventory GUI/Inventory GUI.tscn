@@ -5,6 +5,7 @@
 [ext_resource path="res://Inventory GUI/Inventory GUI.gd" type="Script" id=3]
 
 [node name="Inventory GUI" type="Control"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -16,6 +17,7 @@ __meta__ = {
 [node name="Stash UI" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="Stash UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

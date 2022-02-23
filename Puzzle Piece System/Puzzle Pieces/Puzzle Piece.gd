@@ -24,6 +24,9 @@ func _ready():
 	sprite_size = sprite.texture.get_size()
 	debug_name.set_text(str(self))
 	sprite_shape = PieceEvents.shapes[sprite.texture]
+	
+	if piece_type != "REFLECTOR":
+		laser.queue_free()
 
 func initialize_piece():
 	match piece_type:
@@ -72,9 +75,6 @@ func process_puzzle_piece_input(event):
 		if event.pressed and event.button_index == 1 and !picked_up:
 			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 			rigid_body_collider.disabled = true
-			laser.enabled = false
-			is_being_hit_by_laser = false
-			update_laser_status()
 			picked_up = true
 			throwing_area.disabled = false
 			PieceEvents.emit_signal("pick_up_event_initiated", self, "PICK_UP")
@@ -97,8 +97,6 @@ func _on_Throwing_Area_input_event(viewport, event, shape_idx):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			rigid_body_collider.disabled = false
 			picked_up = false
-			laser.enabled = true
-			update_laser_status()
 			throwing_area.disabled = true
 			PieceEvents.emit_signal("pick_up_event_initiated", self, "DROP")
 			

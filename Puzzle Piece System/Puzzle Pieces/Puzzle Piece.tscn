@@ -58,6 +58,7 @@ shape = SubResource( 4 )
 position = Vector2( 80, 0 )
 
 [node name="Debug" type="Label" parent="RigidBody2D"]
+visible = false
 margin_left = -40.0
 margin_top = -96.0
 margin_right = 48.0
@@ -69,6 +70,7 @@ __meta__ = {
 }
 
 [node name="Debug2" type="Label" parent="RigidBody2D"]
+visible = false
 margin_left = -40.0
 margin_top = -144.0
 margin_right = 48.0

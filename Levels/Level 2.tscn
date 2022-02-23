@@ -1,0 +1,132 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Foreground/Foreground.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Level/Change Rooms/Change Areas.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Background/Background.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Level/Change Rooms/Room Change Area.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Puzzle Piece System/Puzzle Key Shape/Puzzle Key Shape.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Puzzle Piece System/Button System/Button System.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Transition Handler/Triggers/Trigger.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Puzzle Piece System/Puzzle Pieces/Square/Square.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Puzzle Piece System/Puzzle Pieces/Platform/Platform.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Puzzle Piece System/Reflector System/Reflector System.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Puzzle Piece System/Puzzle Pieces/Circle/Circle.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Puzzle Piece System/Door/Door.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Puzzle Piece System/Puzzle Pieces/Triangle/Triangle.tscn" type="PackedScene" id=27]
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="TileSet" id=1]
+0/name = "icon.png 0"
+0/texture = ExtResource( 3 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 2 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
+[node name="Level 2" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource( 6 )]
+
+[node name="Foreground" parent="." instance=ExtResource( 4 )]
+tile_set = SubResource( 1 )
+collision_layer = 5
+collision_mask = 5
+tile_data = PoolIntArray( 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 589851, 0, 0, 589852, 0, 0, 589853, 0, 0, 589854, 0, 0, 589855, 0, 0 )
+
+[node name="Room Change Areas" type="Node2D" parent="."]
+
+[node name="Room 1 Transition" parent="Room Change Areas" instance=ExtResource( 5 )]
+go_to_area_path = NodePath("Room Change Area")
+go_back_to_area_path = NodePath("Room Change Area2")
+
+[node name="Room Change Area" parent="Room Change Areas/Room 1 Transition" instance=ExtResource( 7 )]
+
+[node name="Room Change Area2" parent="Room Change Areas/Room 1 Transition" instance=ExtResource( 7 )]
+position = Vector2( 1912, 384 )
+direction = "LEFT"
+
+[node name="Room 2 Transition" parent="Room Change Areas" instance=ExtResource( 5 )]
+go_to_area_path = NodePath("Room Change Area")
+go_back_to_area_path = NodePath("Room Change Area2")
+
+[node name="Room Change Area" parent="Room Change Areas/Room 2 Transition" instance=ExtResource( 7 )]
+position = Vector2( 4120, 376 )
+
+[node name="Room Change Area2" parent="Room Change Areas/Room 2 Transition" instance=ExtResource( 7 )]
+position = Vector2( 4000, 376 )
+direction = "LEFT"
+
+[node name="Room 3 Transition2" parent="Room Change Areas" instance=ExtResource( 5 )]
+position = Vector2( 6128, 376 )
+go_to_area_path = NodePath("Room Change Area2")
+go_back_to_area_path = NodePath("Room Change Area")
+
+[node name="Room Change Area" parent="Room Change Areas/Room 3 Transition2" instance=ExtResource( 7 )]
+position = Vector2( -80, 0 )
+direction = "LEFT"
+
+[node name="Room Change Area2" parent="Room Change Areas/Room 3 Transition2" instance=ExtResource( 7 )]
+position = Vector2( 48, 0 )
+
+[node name="Puzzle System" type="Node2D" parent="."]
+
+[node name="Puzzle Pieces" type="Node2D" parent="Puzzle System"]
+
+[node name="Circle" parent="Puzzle System/Puzzle Pieces" instance=ExtResource( 25 )]
+position = Vector2( 3064, -240 )
+
+[node name="Platform" parent="Puzzle System/Puzzle Pieces" instance=ExtResource( 21 )]
+position = Vector2( 4584, 472 )
+piece_type = "PLATFORM"
+
+[node name="Square" parent="Puzzle System/Puzzle Pieces" instance=ExtResource( 19 )]
+position = Vector2( 936, 304 )
+
+[node name="Triangle" parent="Puzzle System/Puzzle Pieces" instance=ExtResource( 27 )]
+position = Vector2( 1272, 232 )
+
+[node name="Doors" type="Node2D" parent="Puzzle System"]
+show_behind_parent = true
+
+[node name="Door 1" parent="Puzzle System/Doors" instance=ExtResource( 26 )]
+position = Vector2( 1976, 368 )
+key_path = NodePath("../Door 1 Key")
+
+[node name="Door 1 Key" parent="Puzzle System/Doors" instance=ExtResource( 15 )]
+position = Vector2( 1251, 413 )
+
+[node name="Door 2" parent="Puzzle System/Doors" instance=ExtResource( 26 )]
+position = Vector2( 4024, 376 )
+key_path = NodePath("../Door 2 Buttons")
+
+[node name="Door 2 Buttons" parent="Puzzle System/Doors" instance=ExtResource( 16 )]
+position = Vector2( 4024, 376 )
+
+[node name="Door 3" parent="Puzzle System/Doors" instance=ExtResource( 26 )]
+position = Vector2( 8120, 376 )
+key_path = NodePath("../Door 3 Lasers")
+
+[node name="Door 3 Lasers" parent="Puzzle System/Doors" instance=ExtResource( 23 )]
+
+[node name="Triggers" type="Node2D" parent="."]
+
+[node name="Trigger" parent="Triggers" instance=ExtResource( 17 )]
+position = Vector2( 1408, 464 )
