@@ -13,9 +13,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Stash UI" type="CanvasLayer" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="Stash UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -27,17 +27,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Stash UI/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1004.0
 margin_bottom = 84.0
 size_flags_vertical = 0
 
-[node name="Stash" type="TextureRect" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="Stash" type="TextureRect" parent="Stash UI/MarginContainer/HBoxContainer"]
 margin_right = 64.0
 margin_bottom = 64.0
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
-[connection signal="gui_input" from="CanvasLayer/MarginContainer/HBoxContainer/Stash" to="CanvasLayer/MarginContainer/HBoxContainer/Stash" method="_on_Stash_gui_input"]
+[connection signal="gui_input" from="Stash UI/MarginContainer/HBoxContainer/Stash" to="Stash UI/MarginContainer/HBoxContainer/Stash" method="_on_Stash_gui_input"]

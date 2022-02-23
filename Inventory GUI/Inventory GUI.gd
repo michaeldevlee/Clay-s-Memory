@@ -1,6 +1,6 @@
 extends Control
 
-onready var stash_button = get_node("CanvasLayer/MarginContainer/HBoxContainer/Stash")
+onready var stash_button = get_node("Stash UI/MarginContainer/HBoxContainer/Stash")
 
 var piece_inventory = {
 	
@@ -21,8 +21,6 @@ func add_piece_to_inventory(piece):
 	PieceEvents.picked_up_piece = null
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-		
-	
 	
 	
 	print(piece_inventory)

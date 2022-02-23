@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Guns/Shotgun/Shotgun.tres" type="Resource" id=2]
 [ext_resource path="res://Player/Player Sprites/Player Sprite Sheet.png" type="Texture" id=3]
+[ext_resource path="res://Guns/Dinky Gun/Player Hand.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 32.0
@@ -342,8 +344,9 @@ tracks/7/keys = {
 "values": [ Vector2( -8, -8 ) ]
 }
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
+gun = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -72 )
@@ -351,6 +354,12 @@ shape = SubResource( 1 )
 
 [node name="Rig" type="Node2D" parent="."]
 position = Vector2( 0, -104 )
+
+[node name="R Hand Spawn" type="Position2D" parent="Rig"]
+position = Vector2( 57, 54 )
+
+[node name="L Hand Spawn" type="Position2D" parent="Rig"]
+position = Vector2( -43, 54 )
 
 [node name="Head" type="Node2D" parent="Rig"]
 position = Vector2( 8, 0 )
@@ -401,14 +410,12 @@ position = Vector2( 40, 80 )
 
 [node name="R Hand" type="Sprite" parent="Rig/Body/Hands"]
 position = Vector2( 0, -24 )
-texture = ExtResource( 3 )
-region_enabled = true
+texture = ExtResource( 4 )
 region_rect = Rect2( 7, 149, 32, 32 )
 
 [node name="L Hand" type="Sprite" parent="Rig/Body/Hands"]
 position = Vector2( -96, -24 )
-texture = ExtResource( 3 )
-region_enabled = true
+texture = ExtResource( 4 )
 region_rect = Rect2( 7, 149, 32, 32 )
 
 [node name="Legs" type="Node2D" parent="Rig/Body"]
@@ -438,3 +445,6 @@ autoplay = "Player Idle"
 "anims/Player Idle" = SubResource( 2 )
 "anims/Player Walk" = SubResource( 3 )
 anims/RESET = SubResource( 6 )
+
+[node name="Cool Down Timer" type="Timer" parent="."]
+one_shot = true

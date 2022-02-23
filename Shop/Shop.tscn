@@ -1,7 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player/Player Sprites/Player Sprite Sheet.png" type="Texture" id=1]
 [ext_resource path="res://Shop/Mixer.png" type="Texture" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Shop/Shop.gd" type="Script" id=4]
+[ext_resource path="res://Shop/Shop UI.gd" type="Script" id=5]
+[ext_resource path="res://Guns/Shotgun/Shotgun.tres" type="Resource" id=6]
+[ext_resource path="res://Guns/Sticky Gun/Sticky Gun.tres" type="Resource" id=7]
+[ext_resource path="res://Guns/Plasma Gun/Plasma Gun.tres" type="Resource" id=8]
+[ext_resource path="res://Shop/Arrow.png" type="Texture" id=9]
+[ext_resource path="res://Shop/Background.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=7]
 resource_name = "Gun Idle"
@@ -338,7 +346,11 @@ tracks/7/keys = {
 "values": [ Vector2( -8, -8 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 84, 116 )
+
 [node name="Shop" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="Rig" type="Node2D" parent="."]
 position = Vector2( 0, -104 )
@@ -436,3 +448,156 @@ anims/RESET = SubResource( 6 )
 position = Vector2( 88, -232 )
 texture = ExtResource( 2 )
 centered = false
+
+[node name="Clickable Area" type="Area2D" parent="Mixer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mixer/Clickable Area"]
+position = Vector2( 212, -100 )
+shape = SubResource( 10 )
+
+[node name="Shop UI" type="CanvasLayer" parent="."]
+script = ExtResource( 5 )
+plasma_gun = ExtResource( 8 )
+shot_gun = ExtResource( 6 )
+sticky_gun = ExtResource( 7 )
+gun_name_path = NodePath("MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/Gun Name")
+left_arrow_path = NodePath("MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Left Arrow")
+right_arrow_path = NodePath("MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/Right Arrow")
+gun_texture_path = NodePath("MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer3/Gun Pic")
+price_path = NodePath("MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer3/Price")
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Shop UI/MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 974.0
+margin_bottom = 550.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop UI/MarginContainer/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 50
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer"]
+margin_left = 20.0
+margin_top = 50.0
+margin_right = 904.0
+margin_bottom = 480.0
+custom_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer"]
+margin_right = 884.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Gun Name" type="Label" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 408.0
+margin_right = 476.0
+margin_bottom = 14.0
+text = "Gun Name"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer"]
+margin_top = 44.0
+margin_right = 884.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 292.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Left Arrow" type="Sprite" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+position = Vector2( 158, 178 )
+rotation = -1.5708
+texture = ExtResource( 9 )
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 296.0
+margin_right = 588.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Gun Pic" type="TextureRect" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer3"]
+margin_left = 114.0
+margin_right = 178.0
+margin_bottom = 64.0
+texture = ExtResource( 3 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 592.0
+margin_right = 884.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Right Arrow" type="Sprite" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+position = Vector2( 180, 170 )
+rotation = 1.5708
+texture = ExtResource( 9 )
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer"]
+margin_top = 138.0
+margin_right = 884.0
+margin_bottom = 202.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Price" type="TextureRect" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 410.0
+margin_right = 474.0
+margin_bottom = 64.0
+texture = ExtResource( 3 )
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer"]
+margin_top = 232.0
+margin_right = 884.0
+margin_bottom = 296.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Buy Button" type="TextureRect" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 410.0
+margin_right = 474.0
+margin_bottom = 64.0
+texture = ExtResource( 3 )
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer"]
+margin_top = 326.0
+margin_right = 884.0
+margin_bottom = 390.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Exit Button" type="TextureRect" parent="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer5"]
+margin_left = 410.0
+margin_right = 474.0
+margin_bottom = 64.0
+texture = ExtResource( 3 )
+
+[connection signal="input_event" from="Mixer/Clickable Area" to="." method="_on_Clickable_Area_input_event"]
+[connection signal="gui_input" from="Shop UI/MarginContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer5/Exit Button" to="." method="_on_Exit_Button_gui_input"]
