@@ -110,10 +110,6 @@ position = Vector2( 3064, -240 )
 position = Vector2( 4584, 472 )
 piece_type = "PLATFORM"
 
-[node name="Square" parent="Puzzle System/Puzzle Pieces" instance=ExtResource( 19 )]
-position = Vector2( 936, 304 )
-piece_type = "PUZZLE_PIECE"
-
 [node name="Doors" type="Node2D" parent="Puzzle System"]
 show_behind_parent = true
 
@@ -144,24 +140,30 @@ key_path = NodePath("../Door 3 Lasers")
 
 [node name="Door 3 Lasers" parent="Puzzle System/Doors" instance=ExtResource( 23 )]
 
-[node name="Laser" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 24 )]
-position = Vector2( 6864, -512 )
+[node name="Laser2" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 24 )]
+position = Vector2( 7264, -576 )
 rotation = 1.5708
 cast_to = Vector2( 3000, 0 )
 is_casting = true
 originating_laser = true
 
-[node name="Square2" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 19 )]
-position = Vector2( 7072, 80 )
+[node name="Square4" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 19 )]
+position = Vector2( 7776, 416 )
+rotation = -6.28318
 piece_type = "REFLECTOR"
 
-[node name="Square8" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 19 )]
-position = Vector2( 7712, 0 )
-rotation = 1.5708
+[node name="Square6" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 19 )]
+position = Vector2( 7776, 216 )
+rotation = -4.71378
 piece_type = "REFLECTOR"
+
+[node name="Square5" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 19 )]
+position = Vector2( 1368, 136 )
+rotation = -6.28938
+piece_type = "PUZZLE_PIECE"
 
 [node name="Reflection Receiver" parent="Puzzle System/Doors/Door 3 Lasers" instance=ExtResource( 20 )]
-position = Vector2( 7608, 544 )
+position = Vector2( 7520, 544 )
 
 [node name="Triggers" type="Node2D" parent="."]
 

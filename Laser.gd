@@ -6,6 +6,7 @@ onready var tween = get_node("Tween")
 onready var cast_particles = get_node("Casting Particle")
 onready var coll_particles = get_node("Colliding Particle")
 onready var beam_particles = get_node("Colliding Particle2")
+onready var laser_path = get_node("Laser Path/CollisionShape2D")
 
 export var is_casting := false
 export var originating_laser := false
@@ -27,54 +28,29 @@ func _physics_process(delta):
 		coll_particles.global_rotation = get_collision_normal().angle()
 		coll_particles.position = cast_point
 		
-		if get_collider() != null and target == null:
-			target = get_collider().owner
-			
-			if target is Puzzle_Piece:
-				if target.piece_type == "REFLECTOR":
-					if owner.name != "Main":
-						owner.next_laser = target.laser
-						owner.next_piece = target
-					
-					target.is_being_hit_by_laser = true
-					target.update_laser_status()
-	
-			if get_collider().owner != target:
-				target.update_laser_status()
-				target = get_collider().owner
-				target.update_laser_status()
-				print("Switch")
-		
-		if get_collider().owner.name == "Reflection Receiver":
-			var receiver : Reflection_Receiver = get_collider().owner
-			
-			if receiver.fully_shined == false:
-				receiver.fully_shined = true
-		
-			
-	elif target:
-		target.is_being_hit_by_laser = false
-		target.update_laser_status()
-		target = null
-		
 
 	line.points[1] = cast_point
 	beam_particles.position = cast_point * 0.5
 	beam_particles.process_material.emission_box_extents.x = cast_point.length() * 0.5
 	
+func deactivate():
+	laser_path.set_deferred("disabled", true)
+
+func activate():
+	laser_path.set_deferred("disabled", false)
 
 func set_is_casting(cast:bool):
 	is_casting = cast
 
 	beam_particles.emitting = is_casting
 	cast_particles.emitting = is_casting
+	
 	if is_casting:
 		appear()
 		
 	else:
 		coll_particles.emitting = false
 		disappear()
-	
 
 	set_physics_process(is_casting)
 

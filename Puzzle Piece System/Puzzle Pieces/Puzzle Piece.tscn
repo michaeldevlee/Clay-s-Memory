@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Puzzle Piece System/Puzzle Pieces/Puzzle Piece.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -19,7 +19,11 @@ extents = Vector2( 300, 300 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 16, 16 )
 
-[node name="Puzzle Piece" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=5]
+resource_local_to_scene = true
+extents = Vector2( 48, 48 )
+
+[node name="Puzzle Piece" type="Node2D" groups=["Puzzle Piece"]]
 script = ExtResource( 1 )
 piece_type = "DROPPABLE"
 
@@ -54,6 +58,11 @@ disabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Puzzle Piece/Detect Area"]
 shape = SubResource( 4 )
 
+[node name="Laser Detect Area" type="Area2D" parent="RigidBody2D/Puzzle Piece"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Puzzle Piece/Laser Detect Area"]
+shape = SubResource( 5 )
+
 [node name="Laser" parent="RigidBody2D" instance=ExtResource( 3 )]
 position = Vector2( 80, 0 )
 
@@ -83,3 +92,5 @@ __meta__ = {
 
 [connection signal="input_event" from="RigidBody2D/Puzzle Piece/Grab Area" to="." method="_on_Grab_Area_input_event"]
 [connection signal="input_event" from="RigidBody2D/Puzzle Piece/Throwing Area" to="." method="_on_Throwing_Area_input_event"]
+[connection signal="area_entered" from="RigidBody2D/Puzzle Piece/Laser Detect Area" to="." method="_on_Laser_Detect_Area_area_entered"]
+[connection signal="area_exited" from="RigidBody2D/Puzzle Piece/Laser Detect Area" to="." method="_on_Laser_Detect_Area_area_exited"]

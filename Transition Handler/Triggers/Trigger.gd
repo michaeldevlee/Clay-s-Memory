@@ -11,6 +11,8 @@ func _on_Area2D_body_entered(body):
 				LevelManager.emit_signal("level_finished")
 			"BARRICADE":
 				emit_signal("update_barricade_status", true)
+			"BOSS_FIGHT":
+				pass
 
 func _on_Area2D_body_exited(body):
 	if body.name == "Player":

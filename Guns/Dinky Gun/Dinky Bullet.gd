@@ -12,3 +12,5 @@ func _physics_process(delta):
 
 func _on_Hit_Area_body_entered(body):
 	print(body)
+	if body.owner.is_in_group("Boss"):
+		owner.queue_free()

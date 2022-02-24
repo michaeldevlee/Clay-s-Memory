@@ -9,6 +9,7 @@ onready var throwing_area = get_node("RigidBody2D/Puzzle Piece/Throwing Area/Col
 onready var sprite = get_node("RigidBody2D/Puzzle Piece")
 onready var symbol = get_node("RigidBody2D/Puzzle Piece/Symbol")
 onready var laser = get_node("RigidBody2D/Laser")
+onready var laser_detect_area = get_node("RigidBody2D/Puzzle Piece/Laser Detect Area/CollisionShape2D")
 onready var debug_name = get_node("RigidBody2D/Debug")
 onready var debug_stat = get_node("RigidBody2D/Debug2")
 
@@ -16,8 +17,9 @@ var picked_up : bool = false
 var sprite_size 
 var sprite_shape
 var is_being_hit_by_laser : bool = false
-var next_laser
-var next_piece
+var is_laser_on : bool = false
+var incoming_laser
+var laser_hit_count : int = 0
 
 func _ready():
 	initialize_piece()
@@ -50,22 +52,8 @@ func initialize_piece():
 			rigid_body.set_collision_mask_bit(1, true)
 			symbol.texture = PieceEvents.reflector_symbol
 			laser.visible = true
+			laser.enabled = true
 
-
-func update_laser_status():
-	if is_being_hit_by_laser and !next_piece:
-		laser.set_is_casting(true)
-	elif is_being_hit_by_laser and next_piece:
-		laser.set_is_casting(true)
-		next_piece.is_being_hit_by_laser = true
-		next_piece.update_laser_status()
-	elif !is_being_hit_by_laser and next_laser and next_piece:
-		laser.set_is_casting(false)
-		next_laser.set_is_casting(false)
-		next_piece.is_being_hit_by_laser = false
-		next_piece.update_laser_status()
-	elif !is_being_hit_by_laser:
-		laser.set_is_casting(false)
 		
 func _on_Grab_Area_input_event(viewport, event, shape_idx):
 	process_puzzle_piece_input(event)
@@ -79,11 +67,11 @@ func process_puzzle_piece_input(event):
 			throwing_area.disabled = false
 			PieceEvents.emit_signal("pick_up_event_initiated", self, "PICK_UP")
 			rigid_body.mode = RigidBody2D.MODE_KINEMATIC
-
-#func _input(event):
-#	if event is InputEventMouseButton:
-#		if event.pressed and event.button_index == 1:
-#			print(is_being_hit_by_laser)
+			
+			if piece_type == "REFLECTOR":
+				laser.deactivate()
+				laser_detect_area.set_deferred("disabled", true)
+				incoming_laser = null
 
 func _on_Throwing_Area_input_event(viewport, event, shape_idx):
 	
@@ -99,8 +87,11 @@ func _on_Throwing_Area_input_event(viewport, event, shape_idx):
 			picked_up = false
 			throwing_area.disabled = true
 			PieceEvents.emit_signal("pick_up_event_initiated", self, "DROP")
-			
 			initialize_piece()
+			
+			if piece_type == "REFLECTOR":
+				laser.activate()
+				laser_detect_area.set_deferred("disabled", false)
 
 
 func _physics_process(delta):
@@ -108,3 +99,33 @@ func _physics_process(delta):
 		rigid_body.global_position = lerp(rigid_body.global_position.round(), get_global_mouse_position().round(), 1)
 	
 	debug_stat.set_text(str(is_being_hit_by_laser))
+	
+	if incoming_laser and incoming_laser.is_colliding() and !is_being_hit_by_laser:
+		if incoming_laser.get_collider() == rigid_body:
+			laser.activate()
+			is_being_hit_by_laser = true
+			laser.set_is_casting(true)
+			is_laser_on = true
+	elif incoming_laser == null and is_laser_on and is_being_hit_by_laser:
+		is_being_hit_by_laser = false
+		laser.set_is_casting(false)
+		is_laser_on = false
+		laser.deactivate()
+
+
+
+func _on_Laser_Detect_Area_area_entered(area):
+	if area.name == "Laser Path" and piece_type == "REFLECTOR":
+		if incoming_laser == null and !is_being_hit_by_laser:
+			if area.owner.is_casting == true:
+				incoming_laser = area.owner
+		
+			
+func _on_Laser_Detect_Area_area_exited(area):
+	if area.name == "Laser Path" and piece_type == "REFLECTOR":
+		incoming_laser = null
+		is_being_hit_by_laser = false
+		laser.set_is_casting(false)
+		is_laser_on = false
+		laser.deactivate()
+

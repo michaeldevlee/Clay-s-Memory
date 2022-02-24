@@ -12,3 +12,7 @@ func update_player_direction(direction : int):
 
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
+
+func _on_Hit_Area_area_entered(area):
+	if area.owner.is_in_group("Boss"):
+		queue_free()
