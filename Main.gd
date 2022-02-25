@@ -23,6 +23,7 @@ var player
 func _ready():
 	player = get_node(player_path)
 	LevelManager.connect("level_finished" ,self, "load_next_level")
+	LevelManager.connect("level_restart_started", self, "restart_level")
 
 func load_next_level():
 	player.can_move = false
@@ -42,3 +43,24 @@ func load_next_level():
 		SceneTransitionHandler.fade_in()
 		player.can_move = true
 	
+
+func restart_level():
+	if current_level:
+		player.can_move = false
+		SceneTransitionHandler.fade_out()
+		yield(SceneTransitionHandler.anim_player, "animation_finished")
+		get_node(current_level).queue_free()
+		camera.limit_left = 0
+		camera.limit_right = 2048
+		camera.limit_bottom = 600
+		player.global_position = Vector2(200, 500)
+		
+		if index < level_list.size():
+			get_node(current_level).queue_free()
+			var instance = level_list[index].instance()
+			level_load_node.add_child(instance)
+			current_level = instance.get_path()
+			print(instance)
+			SceneTransitionHandler.fade_in()
+			player.can_move = true
+

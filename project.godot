@@ -91,6 +91,7 @@ LevelManager="*res://Level/Level Manager/Level Manager.gd"
 ShopEvents="*res://Shop/Shop Events/Shop Events.gd"
 PlayerEvents="*res://Player/Player Events/PlayerEvents.gd"
 SceneTransitionHandler="*res://Transition Handler/Scene Transition Handler.tscn"
+AudioEngine="*res://Audio/AudioEngine.tscn"
 
 [global]
 
