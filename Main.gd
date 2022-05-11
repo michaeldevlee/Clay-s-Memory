@@ -16,6 +16,8 @@ var level_list = [
 	level_2
 ]
 
+var transitioning : bool = false
+
 onready var level_load_node = get_node("Level")
 onready var camera = get_node("Camera2D")
 var player
@@ -24,6 +26,7 @@ func _ready():
 	player = get_node(player_path)
 	LevelManager.connect("level_finished" ,self, "load_next_level")
 	LevelManager.connect("level_restart_started", self, "restart_level")
+	player.can_move = false
 
 func load_next_level():
 	player.can_move = false
@@ -45,7 +48,8 @@ func load_next_level():
 	
 
 func restart_level():
-	if current_level:
+	if current_level and !transitioning:
+		transitioning = true
 		player.can_move = false
 		SceneTransitionHandler.fade_out()
 		yield(SceneTransitionHandler.anim_player, "animation_finished")
@@ -63,4 +67,5 @@ func restart_level():
 			print(instance)
 			SceneTransitionHandler.fade_in()
 			player.can_move = true
+			transitioning = false
 

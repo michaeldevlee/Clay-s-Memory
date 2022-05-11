@@ -70,6 +70,15 @@ func move_from_input():
 		velocity.y -= jump_impulse
 	velocity = move_and_slide(velocity, Vector2.UP, true)
 
+func play_shaking_anim():
+	body_anim_player.play("Alive Transition")
+
+func play_alive_anim():
+	body_anim_player.play("Alive")
+	yield(body_anim_player,"animation_finished")
+	can_move = true
+	AudioEngine.play_music(AudioEngine.level_music, -3)
+
 
 func apply_gravity(delta):
 	velocity.y += gravity * delta

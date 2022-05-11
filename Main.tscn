@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Levels/Tutorial Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://Level.gd" type="Script" id=3]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Restart Level Area.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI.gd" type="Script" id=6]
 [ext_resource path="res://Camera2D.gd" type="Script" id=7]
+[ext_resource path="res://UI/Restart Button.png" type="Texture" id=8]
 [ext_resource path="res://Inventory GUI/Inventory GUI.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Guns/Dinky Gun/Dinky Gun.tres" type="Resource" id=22]
 
@@ -16,13 +19,70 @@ glow_blend_mode = 0
 glow_hdr_luminance_cap = 2.0
 glow_bicubic_upscale = true
 
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 150.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 5.0
+
+[sub_resource type="Animation" id=5]
+resource_name = "Bring Player To Life"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Player/Player")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_shaking_anim"
+}, {
+"args": [  ],
+"method": "play_alive_anim"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 current_level = NodePath("Level/Tutorial Level")
 player_path = NodePath("Player/Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 152, 472 )
+position = Vector2( 155, 560 )
 current = true
 limit_left = 0
 limit_right = 2048
@@ -45,7 +105,7 @@ script = ExtResource( 3 )
 position = Vector2( 152, 496 )
 
 [node name="Player" parent="Player" instance=ExtResource( 4 )]
-position = Vector2( 0, -24 )
+position = Vector2( 3, 64 )
 speed = 400
 gravity = 800
 gun = ExtResource( 22 )
@@ -57,3 +117,49 @@ remote_path = NodePath("../../../Camera2D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
+
+[node name="Restart Level Area" parent="." instance=ExtResource( 5 )]
+position = Vector2( 5192, 680 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 6 )
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 98.0
+margin_bottom = 98.0
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Restart" type="TextureButton" parent="UI/MarginContainer/VBoxContainer"]
+margin_right = 48.0
+margin_bottom = 48.0
+texture_normal = ExtResource( 8 )
+
+[node name="Cut Scene" type="Node2D" parent="."]
+
+[node name="Particles2D" type="Particles2D" parent="Cut Scene"]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
+position = Vector2( 160, 400 )
+process_material = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cut Scene"]
+autoplay = "Bring Player To Life"
+"anims/Bring Player To Life" = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+
+[connection signal="button_up" from="UI/MarginContainer/VBoxContainer/Restart" to="UI" method="_on_Restart_button_up"]
